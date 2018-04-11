@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/jofftiquez/vue-croppie#readme",
   "dependencies": {
-    "croppie": "^2.6.1"
+    "croppie": "git://github.com/swznd/Croppie.git#viroll"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
