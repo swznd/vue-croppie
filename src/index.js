@@ -40,11 +40,11 @@ const VueCroppie = {
           default: true
         },
         mouseWheelZoom: {
-          type: Boolean,
+          type: null,
           default: true
         },
         showZoomer: {
-          type: Boolean,
+          type: null,
           default: true
         },
         viewport: {
