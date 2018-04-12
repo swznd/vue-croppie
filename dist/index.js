@@ -61,11 +61,38 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75,7 +102,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _croppie = __webpack_require__(1);
+var _croppie = __webpack_require__(2);
 
 __webpack_require__(6);
 
@@ -115,11 +142,11 @@ var VueCroppie = {
           default: true
         },
         enforceBoundary: {
-          type: Boolean,
+          type: null,
           default: true
         },
         mouseWheelZoom: {
-          type: Boolean,
+          type: null,
           default: true
         },
         showZoomer: {
@@ -213,14 +240,14 @@ var VueCroppie = {
 exports.default = VueCroppie;
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*************************
  * Croppie
- * Copyright 2017
+ * Copyright 2018
  * Foliotek
- * Version: 2.6.1
+ * Version: 2.6.2
  *************************/
 (function (root, factory) {
     if (true) {
@@ -241,7 +268,7 @@ exports.default = VueCroppie;
     /* Polyfills */
     if (typeof Promise !== 'function') {
         /*! promise-polyfill 3.1.0 */
-        !function(a){function b(a,b){return function(){a.apply(b,arguments)}}function c(a){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof a)throw new TypeError("not a function");this._state=null,this._value=null,this._deferreds=[],i(a,b(e,this),b(f,this))}function d(a){var b=this;return null===this._state?void this._deferreds.push(a):void k(function(){var c=b._state?a.onFulfilled:a.onRejected;if(null===c)return void(b._state?a.resolve:a.reject)(b._value);var d;try{d=c(b._value)}catch(e){return void a.reject(e)}a.resolve(d)})}function e(a){try{if(a===this)throw new TypeError("A promise cannot be resolved with itself.");if(a&&("object"==typeof a||"function"==typeof a)){var c=a.then;if("function"==typeof c)return void i(b(c,a),b(e,this),b(f,this))}this._state=!0,this._value=a,g.call(this)}catch(d){f.call(this,d)}}function f(a){this._state=!1,this._value=a,g.call(this)}function g(){for(var a=0,b=this._deferreds.length;b>a;a++)d.call(this,this._deferreds[a]);this._deferreds=null}function h(a,b,c,d){this.onFulfilled="function"==typeof a?a:null,this.onRejected="function"==typeof b?b:null,this.resolve=c,this.reject=d}function i(a,b,c){var d=!1;try{a(function(a){d||(d=!0,b(a))},function(a){d||(d=!0,c(a))})}catch(e){if(d)return;d=!0,c(e)}}var j=setTimeout,k="function"==typeof setImmediate&&setImmediate||function(a){j(a,1)},l=Array.isArray||function(a){return"[object Array]"===Object.prototype.toString.call(a)};c.prototype["catch"]=function(a){return this.then(null,a)},c.prototype.then=function(a,b){var e=this;return new c(function(c,f){d.call(e,new h(a,b,c,f))})},c.all=function(){var a=Array.prototype.slice.call(1===arguments.length&&l(arguments[0])?arguments[0]:arguments);return new c(function(b,c){function d(f,g){try{if(g&&("object"==typeof g||"function"==typeof g)){var h=g.then;if("function"==typeof h)return void h.call(g,function(a){d(f,a)},c)}a[f]=g,0===--e&&b(a)}catch(i){c(i)}}if(0===a.length)return b([]);for(var e=a.length,f=0;f<a.length;f++)d(f,a[f])})},c.resolve=function(a){return a&&"object"==typeof a&&a.constructor===c?a:new c(function(b){b(a)})},c.reject=function(a){return new c(function(b,c){c(a)})},c.race=function(a){return new c(function(b,c){for(var d=0,e=a.length;e>d;d++)a[d].then(b,c)})},c._setImmediateFn=function(a){k=a},"undefined"!=typeof module&&module.exports?module.exports=c:a.Promise||(a.Promise=c)}(this);
+        !function(a){function b(a,b){return function(){a.apply(b,arguments)}}function c(a){if("object"!==typeof this)throw new TypeError("Promises must be constructed via new");if("function"!==typeof a)throw new TypeError("not a function");this._state=null,this._value=null,this._deferreds=[],i(a,b(e,this),b(f,this))}function d(a){var b=this;return null===this._state?void this._deferreds.push(a):void k(function(){var c=b._state?a.onFulfilled:a.onRejected;if(null===c)return void(b._state?a.resolve:a.reject)(b._value);var d;try{d=c(b._value)}catch(e){return void a.reject(e)}a.resolve(d)})}function e(a){try{if(a===this)throw new TypeError("A promise cannot be resolved with itself.");if(a&&("object"===typeof a||"function"===typeof a)){var c=a.then;if("function"===typeof c)return void i(b(c,a),b(e,this),b(f,this))}this._state=!0,this._value=a,g.call(this)}catch(d){f.call(this,d)}}function f(a){this._state=!1,this._value=a,g.call(this)}function g(){for(var a=0,b=this._deferreds.length;b>a;a++)d.call(this,this._deferreds[a]);this._deferreds=null}function h(a,b,c,d){this.onFulfilled="function"===typeof a?a:null,this.onRejected="function"===typeof b?b:null,this.resolve=c,this.reject=d}function i(a,b,c){var d=!1;try{a(function(a){d||(d=!0,b(a))},function(a){d||(d=!0,c(a))})}catch(e){if(d)return;d=!0,c(e)}}var j=setTimeout,k="function"===typeof setImmediate&&setImmediate||function(a){j(a,1)},l=Array.isArray||function(a){return"[object Array]"===Object.prototype.toString.call(a)};c.prototype["catch"]=function(a){return this.then(null,a)},c.prototype.then=function(a,b){var e=this;return new c(function(c,f){d.call(e,new h(a,b,c,f))})},c.all=function(){var a=Array.prototype.slice.call(1===arguments.length&&l(arguments[0])?arguments[0]:arguments);return new c(function(b,c){function d(f,g){try{if(g&&("object"===typeof g||"function"===typeof g)){var h=g.then;if("function"===typeof h)return void h.call(g,function(a){d(f,a)},c)}a[f]=g,0===--e&&b(a)}catch(i){c(i)}}if(0===a.length)return b([]);for(var e=a.length,f=0;f<a.length;f++)d(f,a[f])})},c.resolve=function(a){return a&&"object"===typeof a&&a.constructor===c?a:new c(function(b){b(a)})},c.reject=function(a){return new c(function(b,c){c(a)})},c.race=function(a){return new c(function(b,c){for(var d=0,e=a.length;e>d;d++)a[d].then(b,c)})},c._setImmediateFn=function(a){k=a},"undefined"!==typeof module&&module.exports?module.exports=c:a.Promise||(a.Promise=c)}(this);
     }
 
     if ( typeof window.CustomEvent !== "function" ) {
@@ -505,7 +532,7 @@ exports.default = VueCroppie;
     };
 
     function getExifOrientation (img) {
-        return img.exifdata ? img.exifdata.Orientation : 1;
+        return img.exifdata && img.exifdata.Orientation ? num(img.exifdata.Orientation) : 1;
     }
 
     function drawCanvas(canvas, img, orientation) {
@@ -851,7 +878,7 @@ exports.default = VueCroppie;
         function scroll(ev) {
             var delta, targetZoom;
 
-            if(self.options.mouseWheelZoom === 'ctrl' && ev.ctrlKey != true){ 
+            if(self.options.mouseWheelZoom === 'ctrl' && ev.ctrlKey !== true){
               return 0; 
             } else if (ev.wheelDelta) {
                 delta = ev.wheelDelta / 1200; //wheelDelta min: -120 max: 120 // max x 10 x 2
@@ -897,7 +924,7 @@ exports.default = VueCroppie;
         self.elements.zoomer.setAttribute('aria-valuenow', self._currentZoom);
         applyCss();
 
-        if (self.options.enforceBoundary) {
+        if (self.options.enforceBoundary !== 'fit') {
             var boundaries = _getVirtualBoundaries.call(self, vpRect),
                 transBoundaries = boundaries.translate,
                 oBoundaries = boundaries.origin;
@@ -968,7 +995,7 @@ exports.default = VueCroppie;
         };
     }
 
-    function _updateCenterPoint() {
+    function _updateCenterPoint(rotate) {
         var self = this,
             scale = self._currentZoom,
             data = self.elements.preview.getBoundingClientRect(),
@@ -980,14 +1007,27 @@ exports.default = VueCroppie;
             center = {},
             adj = {};
 
-        center.y = top / scale;
-        center.x = left / scale;
+        if (rotate) {
+            var cx = pc.x;
+            var cy = pc.y;
+            var tx = transform.x;
+            var ty = transform.y;
 
-        adj.y = (center.y - pc.y) * (1 - scale);
-        adj.x = (center.x - pc.x) * (1 - scale);
+            center.y = cx;
+            center.x = cy;
+            transform.y = tx;
+            transform.x = ty;
+        }
+        else {
+            center.y = top / scale;
+            center.x = left / scale;
 
-        transform.x -= adj.x;
-        transform.y -= adj.y;
+            adj.y = (center.y - pc.y) * (1 - scale);
+            adj.x = (center.x - pc.x) * (1 - scale);
+
+            transform.x -= adj.x;
+            transform.y -= adj.y;
+        }
 
         var newCss = {};
         newCss[CSS_TRANS_ORG] = center.x + 'px ' + center.y + 'px';
@@ -1035,9 +1075,9 @@ exports.default = VueCroppie;
                 RIGHT_ARROW = 39,
                 DOWN_ARROW  = 40;
 
-            if (ev.shiftKey && (ev.keyCode == UP_ARROW || ev.keyCode == DOWN_ARROW)) {
+            if (ev.shiftKey && (ev.keyCode === UP_ARROW || ev.keyCode === DOWN_ARROW)) {
                 var zoom = 0.0;
-                if (ev.keyCode == UP_ARROW) {
+                if (ev.keyCode === UP_ARROW) {
                     zoom = parseFloat(self.elements.zoomer.value, 10) + parseFloat(self.elements.zoomer.step, 10)
                 }
                 else {
@@ -1053,7 +1093,7 @@ exports.default = VueCroppie;
                 document.body.style[CSS_USERSELECT] = 'none';
                 vpRect = self.elements.viewport.getBoundingClientRect();
                 keyMove(movement);
-            };
+            }
 
             function parseKeyDown(key) {
                 switch (key) {
@@ -1065,8 +1105,8 @@ exports.default = VueCroppie;
                         return [-1, 0];
                     case DOWN_ARROW:
                         return [0, -1];
-                };
-            };
+                }
+            }
         }
 
         function keyMove(movement) {
@@ -1124,7 +1164,7 @@ exports.default = VueCroppie;
                 deltaY = pageY - originalY,
                 newCss = {};
 
-            if (ev.type == 'touchmove') {
+            if (ev.type === 'touchmove') {
                 if (ev.touches.length > 1) {
                     var touch1 = ev.touches[0];
                     var touch2 = ev.touches[1];
@@ -1194,7 +1234,7 @@ exports.default = VueCroppie;
         }
 
         self.options.update.call(self, data);
-        if (self.$ && typeof Prototype == 'undefined') {
+        if (self.$ && typeof Prototype === 'undefined') {
             self.$(self.element).trigger('update.croppie', data);
         }
         else {
@@ -1214,7 +1254,7 @@ exports.default = VueCroppie;
         return this.elements.preview.offsetHeight > 0 && this.elements.preview.offsetWidth > 0;
     }
 
-    function _updatePropertiesFromImage() {
+    function _updatePropertiesFromImage(reset, test) {
         var self = this,
             initialZoom = 1,
             cssReset = {},
@@ -1224,7 +1264,7 @@ exports.default = VueCroppie;
             originReset = new TransformOrigin(),
             isVisible = _isVisible.call(self);
 
-        if (!isVisible || self.data.bound) {// if the croppie isn't visible or it doesn't need binding
+        if (!isVisible || (!reset && self.data.bound)) {// if the croppie isn't visible or it doesn't need binding
             return;
         }
 
@@ -1238,7 +1278,7 @@ exports.default = VueCroppie;
 
         self._originalImageWidth = imgData.width;
         self._originalImageHeight = imgData.height;
-        self.data.orientation = getExifOrientation(self.elements.img);
+        if (!test) self.data.orientation = getExifOrientation(self.elements.img);
 
         if (self.options.enableZoom) {
             _updateZoomLimits.call(self, true);
@@ -1264,7 +1304,7 @@ exports.default = VueCroppie;
 
     function _updateZoomLimits (initial) {
         var self = this,
-            minZoom = 0,
+            minZoom = self.options.minZoom || 0,
             maxZoom = self.options.maxZoom || 1.5,
             initialZoom,
             defaultInitialZoom,
@@ -1278,7 +1318,7 @@ exports.default = VueCroppie;
         if (self.options.enforceBoundary) {
             minW = vpData.width / imgData.width;
             minH = vpData.height / imgData.height;
-            minZoom = Math.max(minW, minH);
+            minZoom = minZoom ? minZoom : self.options.enforceBoundary == 'fit' ? Math.min(minW, minH) : Math.max(minW, minH);
         }
 
         if (minZoom >= maxZoom) {
@@ -1301,7 +1341,7 @@ exports.default = VueCroppie;
     }
 
     function _bindPoints(points) {
-        if (points.length != 4) {
+        if (points.length !== 4) {
             throw "Croppie - Invalid number of points supplied: " + points;
         }
         var self = this,
@@ -1338,7 +1378,7 @@ exports.default = VueCroppie;
             w = vpLeft - ((imgDim.width - vpDim.width) / 2),
             h = vpTop - ((imgDim.height - vpDim.height) / 2),
             transform = new Transform(w, h, self._currentZoom);
-
+            
         css(self.elements.preview, CSS_TRANSFORM, transform.toString());
     }
 
@@ -1346,21 +1386,14 @@ exports.default = VueCroppie;
         var self = this,
             canvas = self.elements.canvas,
             img = self.elements.img,
-            ctx = canvas.getContext('2d'),
-            exif = _hasExif.call(self),
-            customOrientation = self.options.enableOrientation && customOrientation;
+            ctx = canvas.getContext('2d');
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         canvas.width = img.width;
         canvas.height = img.height;
 
-        if (exif && !customOrientation) {
-            var orientation = getExifOrientation(img);
-            drawCanvas(canvas, img, num(orientation || 0, 10));
-        }
-        else if (customOrientation) {
-            drawCanvas(canvas, img, customOrientation);
-        }
+        var orientation = self.options.enableOrientation && customOrientation || getExifOrientation(img);
+        drawCanvas(canvas, img, orientation);
     }
 
     function _getCanvas(data) {
@@ -1380,9 +1413,9 @@ exports.default = VueCroppie;
             canvasWidth = data.outputWidth || width,
             canvasHeight = data.outputHeight || height,
             customDimensions = (data.outputWidth && data.outputHeight),
-            outputWidthRatio = 1;
+            outputWidthRatio = 1,
             outputHeightRatio = 1;
-
+            
         canvas.width = canvasWidth;
         canvas.height = canvasHeight;
 
@@ -1391,8 +1424,10 @@ exports.default = VueCroppie;
             ctx.fillRect(0, 0, canvasWidth, canvasHeight);
         }
 
-        width=Math.min(width, self._originalImageWidth);
-        height=Math.min(height, self._originalImageHeight)
+        if (self.options.enforceBoundary !== false) {
+            width = Math.min(width, self._originalImageWidth);
+            height = Math.min(height, self._originalImageHeight);
+        }
     
         // console.table({ left, right, top, bottom, canvasWidth, canvasHeight });
         ctx.drawImage(this.elements.preview, left, top, width, height, startX, startY, canvasWidth, canvasHeight);
@@ -1465,7 +1500,7 @@ exports.default = VueCroppie;
         else if (Array.isArray(options)) {
             points = options.slice();
         }
-        else if (typeof (options) == 'undefined' && self.data.url) { //refreshing
+        else if (typeof (options) === 'undefined' && self.data.url) { //refreshing
             _updatePropertiesFromImage.call(self);
             _triggerUpdate.call(self);
             return null;
@@ -1517,7 +1552,7 @@ exports.default = VueCroppie;
                 return parseFloat(p);
             });
             if (self.options.useCanvas) {
-                _transferImageToCanvas.call(self, options.orientation || 1);
+                _transferImageToCanvas.call(self, options.orientation);
             }
             _updatePropertiesFromImage.call(self);
             _triggerUpdate.call(self);
@@ -1537,6 +1572,8 @@ exports.default = VueCroppie;
             vpData = self.elements.viewport.getBoundingClientRect(),
             x1 = vpData.left - imgData.left,
             y1 = vpData.top - imgData.top,
+            x1 = x1 < 0 && self.options.enforceBoundary == 'fit' ? x1 * 2 : x1,
+            y1 = y1 < 0 && self.options.enforceBoundary == 'fit' ? y1 * 2 : y1,
             widthDiff = (vpData.width - self.elements.viewport.offsetWidth) / 2, //border
             heightDiff = (vpData.height - self.elements.viewport.offsetHeight) / 2,
             x2 = x1 + self.elements.viewport.offsetWidth + widthDiff,
@@ -1546,13 +1583,13 @@ exports.default = VueCroppie;
         if (scale === Infinity || isNaN(scale)) {
             scale = 1;
         }
-
+        
         var max = self.options.enforceBoundary ? 0 : Number.NEGATIVE_INFINITY;
         x1 = Math.max(max, x1 / scale);
         y1 = Math.max(max, y1 / scale);
         x2 = Math.max(max, x2 / scale);
         y2 = Math.max(max, y2 / scale);
-
+        
         return {
             points: [fix(x1), fix(y1), fix(x2), fix(y2)],
             zoom: scale,
@@ -1580,7 +1617,7 @@ exports.default = VueCroppie;
             vpRect = self.elements.viewport.getBoundingClientRect(),
             ratio = vpRect.width / vpRect.height,
             prom;
-
+            
         if (size === 'viewport') {
             data.outputWidth = vpRect.width;
             data.outputHeight = vpRect.height;
@@ -1642,8 +1679,8 @@ exports.default = VueCroppie;
 
         self.data.orientation = getExifOffset(self.data.orientation, deg);
         drawCanvas(canvas, self.elements.img, self.data.orientation);
+        _updateCenterPoint.call(self, true);
         _updateZoomLimits.call(self);
-        _onZoom.call(self);
         copy = null;
     }
 
@@ -1794,19 +1831,22 @@ exports.default = VueCroppie;
         },
         destroy: function () {
             return _destroy.call(this);
+        },
+        setCenter: function() {
+            _updatePropertiesFromImage.call(this, true, true);
         }
     });
 
     exports.Croppie = window.Croppie = Croppie;
 }));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3).setImmediate))
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var apply = Function.prototype.apply;
+/* WEBPACK VAR INJECTION */(function(global) {var apply = Function.prototype.apply;
 
 // DOM APIs, for completeness
 
@@ -1856,13 +1896,21 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(3);
-exports.setImmediate = setImmediate;
-exports.clearImmediate = clearImmediate;
+__webpack_require__(4);
+// On some exotic environments, it's not clear which object `setimmeidate` was
+// able to install onto.  Search each possibility in the same order as the
+// `setimmediate` library.
+exports.setImmediate = (typeof self !== "undefined" && self.setImmediate) ||
+                       (typeof global !== "undefined" && global.setImmediate) ||
+                       (this && this.setImmediate);
+exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
+                         (typeof global !== "undefined" && global.clearImmediate) ||
+                         (this && this.clearImmediate);
 
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -2052,34 +2100,7 @@ exports.clearImmediate = clearImmediate;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(5)))
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(5)))
 
 /***/ }),
 /* 5 */
@@ -2306,7 +2327,7 @@ if(false) {
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(8)(undefined);
+exports = module.exports = __webpack_require__(8)(false);
 // imports
 
 

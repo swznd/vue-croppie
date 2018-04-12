@@ -36,7 +36,7 @@ const VueCroppie = {
           default: true
         },
         enforceBoundary: {
-          type: Boolean,
+          type: null,
           default: true
         },
         mouseWheelZoom: {
@@ -44,7 +44,7 @@ const VueCroppie = {
           default: true
         },
         showZoomer: {
-          type: null,
+          type: Boolean,
           default: true
         },
         viewport: {
